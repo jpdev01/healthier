@@ -4,10 +4,13 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class WorkoutPlan extends BaseEntity {
+public class User extends BaseEntity {
 
-    User user;
+    String name;
+    String email;
+    String password;
+
 }
