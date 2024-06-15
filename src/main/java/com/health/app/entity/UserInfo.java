@@ -14,7 +14,7 @@ import java.util.Date;
 public class UserInfo extends BaseEntity {
 
     @OneToOne
-    @Column(unique = true)
+//    @Column(unique = true)
     User user;
 
     double weight;

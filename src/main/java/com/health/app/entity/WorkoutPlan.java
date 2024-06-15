@@ -10,4 +10,6 @@ import lombok.Setter;
 public class WorkoutPlan extends BaseEntity {
 
     User user;
+
+    String description;
 }

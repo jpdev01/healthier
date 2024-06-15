@@ -1,5 +1,6 @@
 package com.health.app.controller;
 
+import com.health.app.integrations.openai.OpenAiClient;
 import com.health.app.services.WorkoutPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
