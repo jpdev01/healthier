@@ -1,6 +1,5 @@
 package com.health.app.controller;
 
-import com.health.app.integrations.openai.OpenAiClient;
 import com.health.app.services.WorkoutPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ public class WorkoutPlanController {
 
     @GetMapping("/workout-plan")
     public ResponseEntity<String> getWorkoutPlan() {
-        workoutPlanService.save();
+        workoutPlanService.request();
         return ResponseEntity.ok("Workout Plan");
     }
 }
