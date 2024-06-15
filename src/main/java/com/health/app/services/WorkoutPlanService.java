@@ -3,6 +3,7 @@ package com.health.app.services;
 import com.health.app.entity.WorkoutPlan;
 import com.health.app.integrations.openai.OpenAiClient;
 import com.health.app.integrations.openai.dto.OpenAiCreateMessageRequestDTO;
+import com.health.app.integrations.openai.dto.OpenAiCreateRunRequestDTO;
 import com.health.app.repository.WorkoutPlanRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,10 @@ public class WorkoutPlanService {
         requestDTO.setContent("Hello, I need a workout plan.");
         requestDTO.setRole("user");
         openAiMessageClient.createMessage( "thread_oOOkEFOYqBDSmlE93JCpiOXI", requestDTO);
+
+        OpenAiCreateRunRequestDTO runDTO = new OpenAiCreateRunRequestDTO();
+        runDTO.setAssistant_id("asst_oSmFe2bTv057ndbMZ3L7JIFj");
+        openAiMessageClient.run("thread_oOOkEFOYqBDSmlE93JCpiOXI", runDTO);
         workoutPlanRepository.save(workoutPlan);
     }
 }

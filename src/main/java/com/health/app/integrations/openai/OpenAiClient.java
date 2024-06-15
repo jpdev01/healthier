@@ -1,6 +1,7 @@
 package com.health.app.integrations.openai;
 
 import com.health.app.integrations.openai.dto.OpenAiCreateMessageRequestDTO;
+import com.health.app.integrations.openai.dto.OpenAiCreateRunRequestDTO;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.HttpExchange;
@@ -11,4 +12,7 @@ public interface OpenAiClient {
 
     @PostExchange(url = "{threadId}/messages")
     void createMessage(@PathVariable String threadId, @RequestBody OpenAiCreateMessageRequestDTO requestDTO);
+
+    @PostExchange(url = "{threadId}/runs")
+    void run(@PathVariable String threadId, @RequestBody OpenAiCreateRunRequestDTO requestDTO);
 }
