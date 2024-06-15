@@ -10,4 +10,6 @@ import lombok.Setter;
 public class OpenAiCreateRunRequestDTO {
 
     String assistant_id;
+
+    Boolean stream;
 }
