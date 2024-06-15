@@ -9,6 +9,8 @@ import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
 import reactor.core.publisher.Flux;
 
+import java.util.LinkedHashMap;
+
 @HttpExchange(url = "https://api.openai.com/v1/threads/", contentType = "application/json")
 public interface OpenAiClient {
 
@@ -16,5 +18,5 @@ public interface OpenAiClient {
     void createMessage(@PathVariable String threadId, @RequestBody OpenAiCreateMessageRequestDTO requestDTO);
 
     @PostExchange(url = "{threadId}/runs")
-    Flux<Object> run(@PathVariable String threadId, @RequestBody OpenAiCreateRunRequestDTO requestDTO);
+    Flux<LinkedHashMap> run(@PathVariable String threadId, @RequestBody OpenAiCreateRunRequestDTO requestDTO);
 }
