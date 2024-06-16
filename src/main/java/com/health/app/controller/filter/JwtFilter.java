@@ -17,7 +17,8 @@ import java.io.IOException;
 
 public class JwtFilter extends GenericFilterBean {
 
-    private String secret = "secreto"; // Sua chave secreta
+    private final String secret = "secreto"; // Sua chave secreta
+    private final String prefix = "Bearer "; // Prefixo do token JWT
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
@@ -28,19 +29,19 @@ public class JwtFilter extends GenericFilterBean {
 
         String authHeader = httpRequest.getHeader("Authorization");
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith(prefix)) {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT ausente ou malformado");
             return;
         }
 
-        String token = authHeader.substring(7); // Remova o prefixo "Bearer "
+        String token = authHeader.substring(prefix.length()); // Remova o prefixo "Bearer "
 
         try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
-            httpRequest.setAttribute("claims", claims);
+//            Claims claims = Jwts.parser()
+//                    .setSigningKey(secret)
+//                    .parseClaimsJws(token)
+//                    .getBody();
+//            httpRequest.setAttribute("claims", claims);
         } catch (Exception e) {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT inválido ou expirado");
             return;
