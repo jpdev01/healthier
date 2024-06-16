@@ -3,6 +3,7 @@ package com.health.app.services;
 import com.health.app.dto.CreateUserRequestDTO;
 import com.health.app.entity.User;
 import com.health.app.repository.UserRepository;
+import com.health.app.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class UserService {
         user.setName(createUserRequestDTO.getName());
         user.setEmail(createUserRequestDTO.getEmail());
         user.setPassword(createUserRequestDTO.getPassword());
-
+        System.out.println(new JwtUtil().generateToken(user.getEmail()));
         userRepository.save(user);
         return user;
     }

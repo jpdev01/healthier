@@ -1,6 +1,7 @@
 package com.health.app.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.health.app.controller.filter.JwtFilter;
 import com.health.app.integrations.openai.OpenAiClient;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
