@@ -20,10 +20,10 @@ public class WebConfig {
     @Value("${integrations.openai.api-key}")
     private String openAiApiKey;
 
-    @Bean
-    public JwtFilter jwtFilter() {
-        return new JwtFilter();
-    }
+//    @Bean
+//    public JwtFilter jwtFilter() {
+//        return new JwtFilter();
+//    }
 
     @Bean
     WebClient webClient(ObjectMapper objectMapper) {
