@@ -21,11 +21,6 @@ public class WebConfig {
     private String openAiApiKey;
 
     @Bean
-    public JwtFilter jwtFilter() {
-        return new JwtFilter();
-    }
-
-    @Bean
     WebClient webClient(ObjectMapper objectMapper) {
         return WebClient.builder()
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + openAiApiKey)
