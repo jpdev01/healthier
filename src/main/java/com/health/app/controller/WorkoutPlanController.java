@@ -3,6 +3,7 @@ package com.health.app.controller;
 import com.health.app.dto.WorkoutPlanDTO;
 import com.health.app.entity.User;
 import com.health.app.entity.WorkoutPlan;
+import com.health.app.repository.UserRepository;
 import com.health.app.services.WorkoutPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WorkoutPlanController {
 
     private final WorkoutPlanService workoutPlanService;
+    private final UserRepository userRepository;
 
     @PutMapping("/workout-plan")
     public ResponseEntity<String> updateWorkout() {
@@ -24,7 +26,7 @@ public class WorkoutPlanController {
 
     @GetMapping("/workout-plan")
     public ResponseEntity<WorkoutPlanDTO> getCurrent() {
-        WorkoutPlan workoutPlan = workoutPlanService.getCurrent(new User());
+        WorkoutPlan workoutPlan = workoutPlanService.getCurrent(userRepository.findById(1L).get());
         if (workoutPlan == null) {
             return ResponseEntity.notFound().build();
         }
