@@ -1,10 +1,9 @@
 package com.health.app.controller;
 
-import com.health.app.dto.CreateUserRequestDTO;
-import com.health.app.dto.GetUserInfoResponseDTO;
-import com.health.app.dto.SendUserInfoRequestDTO;
+import com.health.app.dto.*;
 import com.health.app.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +32,11 @@ public class UserController {
         responseDTO.setWeight(90);
         responseDTO.setHeight(170);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody LoginUserDto loginUserDto) {
+        RecoveryJwtTokenDto token = userService.authenticateUser(loginUserDto);
+        return ResponseEntity.ok(token);
     }
 }
