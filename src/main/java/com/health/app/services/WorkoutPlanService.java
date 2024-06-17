@@ -17,7 +17,7 @@ public class WorkoutPlanService {
     private final OpenAiManagerService openAiManagerService;
 
     public void request() {
-        openAiManagerService.send();
+        openAiManagerService.runWorkout();
     }
 
     public WorkoutPlan getCurrent(User user) {
