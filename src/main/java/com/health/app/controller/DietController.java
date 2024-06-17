@@ -28,4 +28,10 @@ public class DietController {
         }
         return ResponseEntity.ok(new DietDTO(workoutPlan));
     }
+
+    @PutMapping("/diet")
+    public ResponseEntity<Boolean> updateDiet() {
+        dietService.request();
+        return ResponseEntity.ok(true);
+    }
 }
