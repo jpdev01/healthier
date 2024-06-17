@@ -10,7 +10,10 @@ public class WorkoutPlanDTO {
 
     String description;
 
+    Integer version;
+
     public WorkoutPlanDTO(WorkoutPlan workoutPlan) {
         this.description = workoutPlan.getDescription();
+        this.version = workoutPlan.getVersion();
     }
 }
