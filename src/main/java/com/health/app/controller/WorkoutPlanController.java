@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class WorkoutPlanController {
 
     private final WorkoutPlanService workoutPlanService;
-    private final UserRepository userRepository;
 
     @PutMapping("/workout-plan")
     public ResponseEntity<String> updateWorkout() {
@@ -26,7 +25,7 @@ public class WorkoutPlanController {
 
     @GetMapping("/workout-plan")
     public ResponseEntity<WorkoutPlanDTO> getCurrent() {
-        WorkoutPlan workoutPlan = workoutPlanService.getCurrent(userRepository.findById(1L).get());
+        WorkoutPlan workoutPlan = workoutPlanService.getCurrent();
         if (workoutPlan == null) {
             return ResponseEntity.notFound().build();
         }
