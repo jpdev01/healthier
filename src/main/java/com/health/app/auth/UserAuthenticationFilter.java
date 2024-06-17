@@ -20,9 +20,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class UserAuthenticationFilter extends OncePerRequestFilter {
 
-    private JwtTokenService jwtTokenService; // Service que definimos anteriormente
+    private final JwtTokenService jwtTokenService; // Service que definimos anteriormente
 
-    private UserRepository userRepository; // Repository que definimos anteriormente
+    private final UserRepository userRepository; // Repository que definimos anteriormente
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, IOException {
