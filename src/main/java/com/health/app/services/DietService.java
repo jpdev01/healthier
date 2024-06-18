@@ -15,9 +15,10 @@ public class DietService {
 
     private final DietRepository dietRepository;
     private final OpenAiManagerService openAiManagerService;
+    private final CurrentUserService currentUserService;
 
-    public Diet getCurrent(User user) {
-        return dietRepository.findByUserId(user.getId());
+    public Diet getCurrent() {
+        return dietRepository.findByUserId(currentUserService.getId());
     }
 
     public void request() {
