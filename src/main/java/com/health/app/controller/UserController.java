@@ -1,6 +1,7 @@
 package com.health.app.controller;
 
 import com.health.app.dto.*;
+import com.health.app.services.UserInfoService;
 import com.health.app.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserInfoService userInfoService;
 
     @PostMapping("/user")
     public ResponseEntity<String> save(@RequestBody CreateUserRequestDTO requestDTO) {
@@ -21,16 +23,13 @@ public class UserController {
 
     @PutMapping("/user-info")
     public ResponseEntity<String> update(@RequestBody SendUserInfoRequestDTO requestDTO) {
-        System.out.println("oi");
+        userInfoService.update(requestDTO);
         return ResponseEntity.ok("");
     }
 
     @GetMapping("/user-info")
     public ResponseEntity<GetUserInfoResponseDTO> get() {
-        GetUserInfoResponseDTO responseDTO = new GetUserInfoResponseDTO();
-        responseDTO.setAge(12);
-        responseDTO.setWeight(90);
-        responseDTO.setHeight(170);
+        GetUserInfoResponseDTO responseDTO = new GetUserInfoResponseDTO(userInfoService.get());
         return ResponseEntity.ok(responseDTO);
     }
 
