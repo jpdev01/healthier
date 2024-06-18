@@ -5,6 +5,7 @@ import com.health.app.dto.WorkoutPlanDTO;
 import com.health.app.entity.Diet;
 import com.health.app.entity.WorkoutPlan;
 import com.health.app.repository.UserRepository;
+import com.health.app.services.CurrentUserService;
 import com.health.app.services.DietService;
 import com.health.app.services.WorkoutPlanService;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,11 @@ public class DietController {
 
     private final DietService dietService;
     private final UserRepository userRepository;
+    private final CurrentUserService currentUserService;
 
     @GetMapping("/diet")
     public ResponseEntity<DietDTO> getCurrent() {
-        Diet workoutPlan = dietService.getCurrent(userRepository.findById(1L).get());
+        Diet workoutPlan = dietService.getCurrent(currentUserService.get());
         if (workoutPlan == null) {
             return ResponseEntity.notFound().build();
         }
