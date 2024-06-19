@@ -5,7 +5,6 @@ import com.health.app.integrations.openai.OpenAiClient;
 import com.health.app.integrations.openai.dto.OpenAiCreateMessageRequestDTO;
 import com.health.app.integrations.openai.dto.OpenAiCreateRunRequestDTO;
 import com.health.app.services.DietCreateService;
-import com.health.app.services.UserInfoService;
 import com.health.app.services.WorkoutPlanCreateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,28 +28,30 @@ public class OpenAiManagerService {
 
     @Value("${integrations.openai.thread-id}")
     private String threadId;
-    @Value("${integrations.openai.assistant-id}")
-    private String assistantId;
+    @Value("${integrations.openai.assistant-workout-id}")
+    private String assistantWorkout;
+    @Value("${integrations.openai.assistant-diet-id}")
+    private String assistantDietId;
 
     public void runWorkout(UserInfo userInfo) {
         OpenAiCreateMessageRequestDTO requestDTO = new OpenAiCreateMessageRequestDTO();
-        requestDTO.setContent(buildWorkoutMessage(userInfo));
+        requestDTO.setContent(buildContent(userInfo));
         requestDTO.setRole("user");
         openAiClient.createMessage(threadId, requestDTO);
 
-        run(response -> workoutPlanCreateService.save(userInfo.getUser(), response));
+        run(assistantWorkout, response -> workoutPlanCreateService.save(userInfo.getUser(), response));
     }
 
-    public void runDiet() {
+    public void runDiet(UserInfo userInfo) {
         OpenAiCreateMessageRequestDTO requestDTO = new OpenAiCreateMessageRequestDTO();
-        requestDTO.setContent("Give me a diet plan for the month. I'm a beginner. I'm 25 years old. I'm 5'10\". I'm 180 lbs");
+        requestDTO.setContent(buildContent(userInfo));
         requestDTO.setRole("user");
         openAiClient.createMessage(threadId, requestDTO);
 
-        run(text -> dietCreateService.save(null, text));
+        run(assistantDietId, text -> dietCreateService.save(null, text));
     }
 
-    private void run(Consumer<String> consumer) {
+    private void run(String assistantId, Consumer<String> consumer) {
         OpenAiCreateRunRequestDTO runDTO = new OpenAiCreateRunRequestDTO();
         runDTO.setAssistant_id(assistantId);
         runDTO.setStream(true);
@@ -77,7 +78,7 @@ public class OpenAiManagerService {
         return text;
     }
 
-    private String buildWorkoutMessage(UserInfo userInfo) {
+    private String buildContent(UserInfo userInfo) {
         StringBuilder message = new StringBuilder();
         message.append("Idade: ").append(userInfo.getAge()).append("\n");
         message.append("Altura: ").append(userInfo.getHeight()).append("\n");
