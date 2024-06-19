@@ -1,5 +1,6 @@
 package com.health.app.services;
 
+import com.health.app.auth.JwtAdapter;
 import com.health.app.auth.JwtTokenService;
 import com.health.app.auth.SecurityConfiguration;
 import com.health.app.auth.UserDetailsImpl;
@@ -46,7 +47,8 @@ public class UserService {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
+        JwtAdapter jwtAdapter = jwtTokenService.generateToken(userDetails);
+        return new RecoveryJwtTokenDto(jwtAdapter.token(), jwtAdapter.expireAt());
     }
 
 }

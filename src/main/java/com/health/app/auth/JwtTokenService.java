@@ -17,16 +17,20 @@ public class JwtTokenService {
 
     private static final String ISSUER = "pizzurg-api"; // Emissor do token
 
-    public String generateToken(UserDetailsImpl user) {
+    public JwtAdapter generateToken(UserDetailsImpl user) {
         try {
             // Define o algoritmo HMAC SHA256 para criar a assinatura do token passando a chave secreta definida
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
-            return JWT.create()
+
+            Instant expiresAt = expirationDate();
+            String token = JWT.create()
                     .withIssuer(ISSUER) // Define o emissor do token
-                    .withIssuedAt(creationDate()) // Define a data de emissão do token
-                    .withExpiresAt(expirationDate()) // Define a data de expiração do token
+                    .withIssuedAt(creationDate())
+                    .withExpiresAt(expirationDate())
                     .withSubject(user.getUsername()) // Define o assunto do token (neste caso, o nome de usuário)
                     .sign(algorithm); // Assina o token usando o algoritmo especificado
+
+            return new JwtAdapter(token, expiresAt.getEpochSecond());
         } catch (JWTCreationException exception){
             throw new JWTCreationException("Erro ao gerar token.", exception);
         }
