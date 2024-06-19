@@ -27,9 +27,9 @@ public class OpenAiManagerService {
     private final WorkoutPlanCreateService workoutPlanCreateService;
     private final DietCreateService dietCreateService;
 
-    @Value("integrations.openai.thread-id")
+    @Value("${integrations.openai.thread-id}")
     private String threadId;
-    @Value("integrations.openai.assistant-id")
+    @Value("${integrations.openai.assistant-id}")
     private String assistantId;
 
     public void runWorkout(UserInfo userInfo) {

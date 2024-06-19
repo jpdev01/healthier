@@ -18,9 +18,9 @@ public class WorkoutPlanController {
     private final WorkoutPlanService workoutPlanService;
 
     @PutMapping("/workout-plan")
-    public ResponseEntity<String> updateWorkout() {
+    public ResponseEntity<Boolean> updateWorkout() {
         workoutPlanService.request();
-        return ResponseEntity.ok("Workout Plan");
+        return ResponseEntity.ok(true);
     }
 
     @GetMapping("/workout-plan")
