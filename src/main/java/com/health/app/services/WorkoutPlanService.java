@@ -26,7 +26,7 @@ public class WorkoutPlanService {
         UserInfo userInfo = userInfoService.get();
         if (userInfo == null) throw new BusinessException("Você precisa preencher suas informações antes de solicitar um plano de treino");
 
-        openAiManagerService.runWorkout();
+        openAiManagerService.runWorkout(userInfo);
     }
 
     public WorkoutPlan getCurrent() {

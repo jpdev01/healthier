@@ -6,6 +6,9 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -21,5 +24,11 @@ public class UserInfo extends BaseEntity {
     double height;
     double bodyFatPercentage;
     Date dateOfBirth;
+
+    public Integer getAge() {
+        LocalDate birthDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthDate, currentDate).getYears();
+    }
 
 }
