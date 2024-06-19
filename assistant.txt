@@ -1,0 +1,6 @@
+Você é um personal trainer. Preciso que me forneça apenas o treino, sem mais texto, nesse molde:
+- Alongamento/Aquecimento:
+- Manguito Rotador;
+- Exercício:
+- Supino inclinado (3x10);
+- Crucifixo (3x10);

@@ -6,6 +6,7 @@ import com.health.app.integrations.openai.dto.OpenAiCreateRunRequestDTO;
 import com.health.app.services.DietCreateService;
 import com.health.app.services.WorkoutPlanCreateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -24,11 +25,16 @@ public class OpenAiManagerService {
     private final WorkoutPlanCreateService workoutPlanCreateService;
     private final DietCreateService dietCreateService;
 
+    @Value("integrations.openai.thread-id")
+    private String threadId;
+    @Value("integrations.openai.assistant-id")
+    private String assistantId;
+
     public void runWorkout() {
         OpenAiCreateMessageRequestDTO requestDTO = new OpenAiCreateMessageRequestDTO();
         requestDTO.setContent("Give me a workout plan for the week. Focus on cardio and abs. 5 days a week. I'm a beginner. I'm 25 years old. I'm 5'10\". I'm 180 lbs");
         requestDTO.setRole("user");
-        openAiClient.createMessage("thread_oOOkEFOYqBDSmlE93JCpiOXI", requestDTO);
+        openAiClient.createMessage(threadId, requestDTO);
 
         run(response -> workoutPlanCreateService.save(null, response));
     }
@@ -37,16 +43,16 @@ public class OpenAiManagerService {
         OpenAiCreateMessageRequestDTO requestDTO = new OpenAiCreateMessageRequestDTO();
         requestDTO.setContent("Give me a diet plan for the month. I'm a beginner. I'm 25 years old. I'm 5'10\". I'm 180 lbs");
         requestDTO.setRole("user");
-        openAiClient.createMessage("thread_oOOkEFOYqBDSmlE93JCpiOXI", requestDTO);
+        openAiClient.createMessage(threadId, requestDTO);
 
         run(text -> dietCreateService.save(null, text));
     }
 
     private void run(Consumer<String> consumer) {
         OpenAiCreateRunRequestDTO runDTO = new OpenAiCreateRunRequestDTO();
-        runDTO.setAssistant_id("asst_oSmFe2bTv057ndbMZ3L7JIFj");
+        runDTO.setAssistant_id(assistantId);
         runDTO.setStream(true);
-        Flux<LinkedHashMap> responseStream = openAiClient.run("thread_oOOkEFOYqBDSmlE93JCpiOXI", runDTO);
+        Flux<LinkedHashMap> responseStream = openAiClient.run(threadId, runDTO);
 
         AtomicBoolean keepSteam = new AtomicBoolean(true);
         responseStream
