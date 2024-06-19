@@ -1,0 +1,1 @@
+This project was developed for the Mobile Devices course at UDESC (Santa Catarina State University). The objective of this API is to generate training sessions through artificial intelligence using client data.
