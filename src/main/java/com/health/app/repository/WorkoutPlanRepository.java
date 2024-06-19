@@ -9,4 +9,6 @@ public interface WorkoutPlanRepository extends Repository<WorkoutPlan, Long> {
     WorkoutPlan save(WorkoutPlan workoutPlan);
 
     WorkoutPlan findByUserId(Long userId);
+
+    WorkoutPlan findFirstByUserIdOrderByIdDesc(Long userId);
 }

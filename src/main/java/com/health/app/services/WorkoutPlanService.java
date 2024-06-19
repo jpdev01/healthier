@@ -30,6 +30,6 @@ public class WorkoutPlanService {
     }
 
     public WorkoutPlan getCurrent() {
-        return workoutPlanRepository.findByUserId(currentUserService.getId());
+        return workoutPlanRepository.findFirstByUserIdOrderByIdDesc(currentUserService.getId());
     }
 }

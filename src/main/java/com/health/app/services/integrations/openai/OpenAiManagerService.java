@@ -38,7 +38,7 @@ public class OpenAiManagerService {
         requestDTO.setRole("user");
         openAiClient.createMessage(threadId, requestDTO);
 
-        run(response -> workoutPlanCreateService.save(null, response));
+        run(response -> workoutPlanCreateService.save(userInfo.getUser(), response));
     }
 
     public void runDiet() {
