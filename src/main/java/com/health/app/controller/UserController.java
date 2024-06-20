@@ -1,6 +1,7 @@
 package com.health.app.controller;
 
 import com.health.app.dto.*;
+import com.health.app.entity.UserInfo;
 import com.health.app.services.UserInfoService;
 import com.health.app.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,9 @@ public class UserController {
 
     @GetMapping("/user-info")
     public ResponseEntity<GetUserInfoResponseDTO> get() {
+        UserInfo userInfo = userInfoService.get();
+        if (userInfo == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
         GetUserInfoResponseDTO responseDTO = new GetUserInfoResponseDTO(userInfoService.get());
         return ResponseEntity.ok(responseDTO);
     }

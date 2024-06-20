@@ -10,4 +10,5 @@ public class SendUserInfoRequestDTO {
     double height;
     double weight;
     Integer age;
+    String dateOfBirth;
 }

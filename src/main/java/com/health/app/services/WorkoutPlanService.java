@@ -30,6 +30,15 @@ public class WorkoutPlanService {
     }
 
     public WorkoutPlan getCurrent() {
+        WorkoutPlan workoutPlan = workoutPlanRepository.findFirstByUserIdOrderByIdDesc(currentUserService.getId());
+        if (workoutPlan == null) {
+            UserInfo userInfo = userInfoService.get();
+            if (userInfo == null) throw new BusinessException("Você precisa preencher suas informações antes de solicitar um plano de treino");
+        }
         return workoutPlanRepository.findFirstByUserIdOrderByIdDesc(currentUserService.getId());
+    }
+
+    private void validateRequest() {
+
     }
 }
