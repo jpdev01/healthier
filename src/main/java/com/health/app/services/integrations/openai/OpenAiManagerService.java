@@ -48,7 +48,7 @@ public class OpenAiManagerService {
         requestDTO.setRole("user");
         openAiClient.createMessage(threadId, requestDTO);
 
-        run(assistantDietId, text -> dietCreateService.save(null, text));
+        run(assistantDietId, text -> dietCreateService.save(userInfo.getUser(), text));
     }
 
     private void run(String assistantId, Consumer<String> consumer) {

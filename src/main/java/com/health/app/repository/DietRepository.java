@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DietRepository extends JpaRepository<Diet, Long> {
 
     Diet findByUserId(Long userId);
+
+    Diet findFirstByUserIdOrderByIdDesc(Long userId);
 }

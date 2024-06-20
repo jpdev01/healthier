@@ -21,7 +21,7 @@ public class DietService {
     private final UserInfoService userInfoService;
 
     public Diet getCurrent() {
-        return dietRepository.findByUserId(currentUserService.getId());
+        return dietRepository.findFirstByUserIdOrderByIdDesc(currentUserService.getId());
     }
 
     public void request() {
