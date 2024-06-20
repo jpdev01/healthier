@@ -17,4 +17,9 @@ public class CustomDateUtils {
         }
         return null;
     }
+
+    public static String format(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return dateFormat.format(date);
+    }
 }

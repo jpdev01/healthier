@@ -1,6 +1,7 @@
 package com.health.app.dto;
 
 import com.health.app.entity.UserInfo;
+import com.health.app.utils.CustomDateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +11,11 @@ public class GetUserInfoResponseDTO {
 
     double height;
     double weight;
-    Integer age;
+    String dateOfBirth;
 
     public GetUserInfoResponseDTO(UserInfo userInfo) {
         this.height = userInfo.getHeight();
         this.weight = userInfo.getWeight();
-        this.age = 20;
+        this.dateOfBirth = CustomDateUtils.format(userInfo.getDateOfBirth());
     }
 }
