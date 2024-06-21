@@ -11,10 +11,10 @@ public class DietDTO {
 
     String description;
 
-    Integer version;
+    Long id;
 
     public DietDTO(Diet diet) {
         this.description = diet.getDescription();
-        this.version = diet.getVersion();
+        this.id = diet.getId();
     }
 }
